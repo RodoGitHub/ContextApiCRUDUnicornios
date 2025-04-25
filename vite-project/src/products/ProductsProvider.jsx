@@ -1,4 +1,3 @@
-// ProductProvider.jsx
 import { useEffect, useState } from "react";
 import { ProductContext } from "../context/GlobalContext";
 import {
