@@ -1,12 +1,19 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UnicornContext } from "../context/GlobalContext";
+import { exportToPdf } from "../utils/ExportoPdf";
 
 const UnicornsView = () => {
-  const { unicorns, loading, handleDelete, unicornEdit,setModeEdit, setUnicornEdit } = useContext(UnicornContext);
+  const {
+    unicorns, 
+    loading, 
+    handleDelete, 
+    setModeEdit, 
+    setUnicornEdit 
+  } = useContext(UnicornContext);
   const navigate = useNavigate();
-
   const trueUnicorns = unicorns.length === 0 ? "No hay unicornios cargados." : "Listado de Unicornios";
+  
   if (loading) return <div className="text-center my-5"><p>Cargando unicornios...</p></div>;
 
   return (
@@ -53,15 +60,14 @@ const UnicornsView = () => {
                       className="btn btn-primary btn-sm"
                       onClick={() => {
                         setModeEdit(true);
-                        setUnicornEdit({
-                          _id: unicorn._id,
+                        setUnicornEdit({                    
                           name: unicorn.name,
                           age: unicorn.age,
                           colour: unicorn.colour,
                           power: unicorn.power
                         });
                         
-                        navigate(`/editar/${unicorn.id}`);
+                        navigate(`/editar/${unicorn._id}`);
                       }}
                     >
                       Editar
@@ -80,6 +86,12 @@ const UnicornsView = () => {
             )}
           </tbody>
         </table>
+        <button
+          className="btn btn-outline-primary"
+          onClick={() => exportToPdf(unicorns, 'Listado de Unicornios', ['ID', 'Nombre', 'Edad', 'Color', 'Poder'])}
+        >
+          Exportar a PDF
+        </button>
       </div>
     </div>
   );

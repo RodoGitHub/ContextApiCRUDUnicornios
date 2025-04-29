@@ -9,8 +9,8 @@ import {
 
 const UnicornsProvider = ({ children }) => {
     const [unicorns, setUnicorns] = useState([]);
+    const [unicornId, setUnicornId] = useState([]);
     const [unicornEdit, setUnicornEdit] = useState({
-        _id: null,
         name: '',
         age: null,
         colour: '',
@@ -52,19 +52,10 @@ const UnicornsProvider = ({ children }) => {
         }
     }
 
-    const unicornId = (id) => {
-        const unicorn = unicorns.find(u => parseInt(u.id) === parseInt(id));
-        if (unicorn) {
-          setUnicornEdit(unicorn);
-          setModeEdit(true);
-        }
-    };
-
     const handleUpdate = async (unicornId, unicorn) => {
-        const { _id, ...outId } = unicorn;
         setLoading(true);
         try {
-            const response = await updateObject(unicornId, outId);
+            const response = await updateObject(unicornId, unicorn);
             setModeEdit(false)
             await fetchUnicorns();
             if (!response.ok) {
@@ -97,17 +88,21 @@ const UnicornsProvider = ({ children }) => {
     return (
         <UnicornContext.Provider 
         value={{ 
-            unicorns, 
-            unicornEdit,
+            error, 
             loading,
             modeEdit, 
-            error, 
+            
+            unicorns, 
+            unicornEdit,
+            unicornId,
+            
             handleCreate, 
             handleDelete, 
             handleUpdate, 
+            
             setUnicornEdit,
+            setUnicornId,
             setModeEdit,
-            unicornId
             
         }}
         >

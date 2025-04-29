@@ -1,17 +1,19 @@
 import React, { useContext, useEffect ,useState} from 'react';
 import { useNavigate, useParams } from "react-router-dom";
+import { UnicornContext } from '../context/GlobalContext';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { UnicornContext } from '../context/GlobalContext';
+
 
 const UnicornsView = () => {
   const {
     handleCreate,
     handleUpdate,
+    modeEdit,
+    setModeEdit,
+    setUnicornId,
     unicornEdit,
     unicornId,
-    setModeEdit,
-    modeEdit
   } = useContext(UnicornContext);
 
   const { id } = useParams();
@@ -20,7 +22,7 @@ const UnicornsView = () => {
 
   useEffect(() => {
     if (id) {
-      unicornId(id);
+      setUnicornId(id);
     }
   }, [id, unicornId]);
 
@@ -48,7 +50,7 @@ const UnicornsView = () => {
           validationSchema={validationSchema}
           onSubmit={(values, { resetForm }) => {
             if (modeEdit) {
-              handleUpdate(unicornEdit._id, values);
+              handleUpdate(id, values);
               console.log("aca estoy", unicornEdit._id);
               setAlertMessage("Unicornio actualizado correctamente.");
             } else {

@@ -1,15 +1,15 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductContext } from "../context/GlobalContext";
-import { exportToPdf } from "./ExportoPdf";
+import { exportToPdf } from "../utils/ExportoPdf";
 
 const ProductsView = () => {
   const { 
     listProduct,
+    handleDelete, 
     setProductId, 
     setProduct, 
     setModeEdit,
-    handleDelete 
   } = useContext(ProductContext);
   const navigate = useNavigate();
 
@@ -21,11 +21,12 @@ const ProductsView = () => {
       <div>
         <button
             className="btn btn-success"
-            onClick={() => navigate(`/form`)}
+            onClick={() => navigate(`form/`)}
           >
             Crear un Producto
         </button>
       </div>
+      
       <div className="table-responsive">
         <table className="table table-bordered table-hover align-middle">
           <thead className="table-dark">
@@ -82,7 +83,7 @@ const ProductsView = () => {
         </table>
         <button
           className="btn btn-outline-primary"
-          onClick={() => exportToPdf(listProduct, 'Listado de Unicornios', ['ID', 'Nombre', 'Precio', 'Stock'])}
+          onClick={() => exportToPdf(listProduct, 'Listado de Producto', ['ID', 'Nombre', 'Precio', 'Stock'])}
         >
           Exportar a PDF
         </button>

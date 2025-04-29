@@ -55,12 +55,15 @@ const ProductProvider = ({ children }) => {
       value={{
         db,
         listProduct,
+        
         handleCreate,
-        handleUpdate,
         handleDelete,
+        handleUpdate,
+        
         modeEdit,
         product,
         productId, 
+        
         setProduct,
         setProductId,
         setModeEdit

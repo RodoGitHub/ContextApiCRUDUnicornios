@@ -1,17 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
+import { ProductContext } from '../context/GlobalContext';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { ProductContext } from '../context/GlobalContext';
 
 const ProductsView = () => {
   const {
     handleCreate,
     handleUpdate,
-    product,
-    productId,
-    setProductId,
     modeEdit,
+    product,
+    setProductId,
     setModeEdit,
   } = useContext(ProductContext);
 
@@ -48,7 +47,8 @@ const ProductsView = () => {
           validationSchema={validationSchema}
           onSubmit={(values, { resetForm }) => {
             if (modeEdit) {
-              handleUpdate(productId, values);
+          
+              handleUpdate(id, values);
               setAlertMessage("Producto actualizado correctamente."); 
             } else {
               handleCreate(values);
