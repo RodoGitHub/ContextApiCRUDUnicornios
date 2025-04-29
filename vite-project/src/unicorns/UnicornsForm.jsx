@@ -48,7 +48,8 @@ const UnicornsView = () => {
           validationSchema={validationSchema}
           onSubmit={(values, { resetForm }) => {
             if (modeEdit) {
-              handleUpdate(unicornEdit.id, values);
+              handleUpdate(unicornEdit._id, values);
+              console.log("aca estoy", unicornEdit._id);
               setAlertMessage("Unicornio actualizado correctamente.");
             } else {
               handleCreate(values);

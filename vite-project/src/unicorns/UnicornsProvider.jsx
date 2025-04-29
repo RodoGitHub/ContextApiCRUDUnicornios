@@ -10,7 +10,7 @@ import {
 const UnicornsProvider = ({ children }) => {
     const [unicorns, setUnicorns] = useState([]);
     const [unicornEdit, setUnicornEdit] = useState({
-        id: null,
+        _id: null,
         name: '',
         age: null,
         colour: '',
@@ -61,9 +61,10 @@ const UnicornsProvider = ({ children }) => {
     };
 
     const handleUpdate = async (unicornId, unicorn) => {
+        const { _id, ...outId } = unicorn;
         setLoading(true);
         try {
-            const response = await updateObject(unicornId, unicorn);
+            const response = await updateObject(unicornId, outId);
             setModeEdit(false)
             await fetchUnicorns();
             if (!response.ok) {

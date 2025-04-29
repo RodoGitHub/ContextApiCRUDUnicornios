@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { UnicornContext } from "../context/GlobalContext";
 
 const UnicornsView = () => {
-  const { unicorns, loading, handleDelete, unicornId } = useContext(UnicornContext);
+  const { unicorns, loading, handleDelete, unicornEdit,setModeEdit, setUnicornEdit } = useContext(UnicornContext);
   const navigate = useNavigate();
 
   const trueUnicorns = unicorns.length === 0 ? "No hay unicornios cargados." : "Listado de Unicornios";
@@ -42,8 +42,8 @@ const UnicornsView = () => {
               </tr>
             ) : (
               unicorns.map((unicorn) => (
-                <tr key={unicorn.id}>
-                  <td>{unicorn.id}</td>
+                <tr key={unicorn._id}>
+                  <td>{unicorn._id}</td>
                   <td>{unicorn.name}</td>
                   <td>{unicorn.age}</td>
                   <td>{unicorn.colour}</td>
@@ -52,7 +52,15 @@ const UnicornsView = () => {
                     <button
                       className="btn btn-primary btn-sm"
                       onClick={() => {
-                        unicornId(unicorn.id);
+                        setModeEdit(true);
+                        setUnicornEdit({
+                          _id: unicorn._id,
+                          name: unicorn.name,
+                          age: unicorn.age,
+                          colour: unicorn.colour,
+                          power: unicorn.power
+                        });
+                        
                         navigate(`/editar/${unicorn.id}`);
                       }}
                     >
@@ -62,7 +70,7 @@ const UnicornsView = () => {
                   <td>
                     <button
                       className="btn btn-danger btn-sm"
-                      onClick={() => handleDelete(unicorn.id)}
+                      onClick={() => handleDelete(unicorn._id)}
                     >
                       Borrar
                     </button>

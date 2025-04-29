@@ -1,4 +1,4 @@
-const BASE_URL = 'https://67fc52ce1f8b41c8168632ab.mockapi.io/apiREACT/product';
+const BASE_URL = 'https://crudcrud.com/api/487c5f23af1f48a98559414db9647424/unicorns';
 
 export const createObject = async (data) => {
   const response = await fetch(BASE_URL, {
@@ -10,6 +10,8 @@ export const createObject = async (data) => {
 };
 
 export const updateObject = async (id, data) => {
+  console.log("update",id);
+  console.log("data",data);
   const response = await fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -19,6 +21,7 @@ export const updateObject = async (id, data) => {
 };
 
 export const deleteObject = async (id) => {
+  console.log("borrar",id);
   const response = await fetch(`${BASE_URL}/${id}`, {
     method: 'DELETE',
   });
