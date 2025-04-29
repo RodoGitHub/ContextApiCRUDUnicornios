@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductContext } from "../context/GlobalContext";
+import { exportToPdf } from "./ExportoPdf";
 
 const ProductsView = () => {
   const { 
@@ -79,6 +80,12 @@ const ProductsView = () => {
             )}
           </tbody>
         </table>
+        <button
+          className="btn btn-outline-primary"
+          onClick={() => exportToPdf(listProduct, 'Listado de Unicornios', ['ID', 'Nombre', 'Precio', 'Stock'])}
+        >
+          Exportar a PDF
+        </button>
       </div>
     </div>
   );
